@@ -1,0 +1,18 @@
+.listStyle {
+  list-style: none;
+  padding: 50px;
+}
+.whiteBackground {
+  background-color: #ffffff;
+  border-radius: 30px;
+
+  padding: 10px;
+}
+.orangeBackground {
+  background-color: #ffc2a0;
+  padding: 30px;
+}
+.mainHeading {
+  text-align: center;
+  color: #ff8542;
+}

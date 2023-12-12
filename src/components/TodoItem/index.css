@@ -1,0 +1,14 @@
+.list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deleteBtn {
+  background-color: transparent;
+  border: 2px solid #ff0b37;
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  color: #ff0b37;
+  cursor: pointer;
+}
