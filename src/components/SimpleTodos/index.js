@@ -39,19 +39,48 @@ const initialTodosList = [
 
 // Write your code here
 class SimpleTodos extends Component {
-  state = { todoList: initialTodosList };
+  state = { todoList: initialTodosList, task: "", userInput: "" };
   onDelete = (id) => {
     const { todoList } = this.state;
     const filteredTodoList = todoList.filter((eachItem) => eachItem.id !== id);
     this.setState({ todoList: filteredTodoList });
     // console.log(id);
   };
+
+  onChangeNewTask = (event) => {
+    this.setState({ userInput: event.target.value });
+  };
+
+  onClickUpdateList = () => {
+    const { userInput, todoList } = this.state;
+    const taskObj = {
+      id: todoList.length,
+      title: userInput,
+    };
+    this.setState((prevState) => ({
+      todoList: [...prevState.todoList, taskObj],
+      userInput: "",
+    }));
+  };
   render() {
-    const { todoList } = this.state;
+    const { todoList, userInput } = this.state;
     return (
       <div className="orangeBackground">
         <div className="whiteBackground">
           <h1 className="mainHeading">Simple Todos</h1>
+          <div className="add-task-input">
+            <input
+              type="text"
+              placeholder="Please Enter Task"
+              className="inputElement"
+              onChange={this.onChangeNewTask}
+              value={userInput}
+            />
+            <button className="AddBtn" onClick={this.onClickUpdateList}>
+              Add
+            </button>
+          </div>
+
           <ul className="listStyle">
             {todoList.map((eachItem) => {
               return (
