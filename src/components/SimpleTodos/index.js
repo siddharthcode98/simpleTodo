@@ -39,7 +39,13 @@ const initialTodosList = [
 
 // Write your code here
 class SimpleTodos extends Component {
-  state = { todoList: initialTodosList, task: "", userInput: "" };
+  state = {
+    todoList: initialTodosList,
+    task: "",
+    userInput: "",
+    numberOfTasks: "",
+  };
+
   onDelete = (id) => {
     const { todoList } = this.state;
     const filteredTodoList = todoList.filter((eachItem) => eachItem.id !== id);
@@ -51,19 +57,44 @@ class SimpleTodos extends Component {
     this.setState({ userInput: event.target.value });
   };
 
-  onClickUpdateList = () => {
-    const { userInput, todoList } = this.state;
-    const taskObj = {
-      id: todoList.length,
-      title: userInput,
-    };
-    this.setState((prevState) => ({
-      todoList: [...prevState.todoList, taskObj],
-      userInput: "",
-    }));
+  addNumberTasks = () => {
+    const { numberOfTasks } = this.state;
+
+    for (let i = 0; i < numberOfTasks; i++) {
+      this.onClickUpdateList();
+    }
   };
+
+  onClickUpdateList = () => {
+    const { userInput } = this.state;
+
+    const userTitle = userInput
+      .split(" ")
+      .filter((item) => isNaN(item))
+      .join(" ");
+
+    const number = userInput.split(" ").filter((item) => !isNaN(item));
+
+    if (!isNaN(number[0])) {
+      this.setState(
+        { numberOfTasks: number[0], userInput: userTitle },
+        this.addNumberTasks
+      );
+    } else {
+      this.setState((prevState) => ({
+        todoList: [
+          ...prevState.todoList,
+          { id: prevState.todoList.length + 1, title: userInput },
+        ],
+
+        userInput: "",
+      }));
+    }
+  };
+
   render() {
     const { todoList, userInput } = this.state;
+
     return (
       <div className="orangeBackground">
         <div className="whiteBackground">
